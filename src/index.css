@@ -1,0 +1,96 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby,input, section, summary,
+time, mark, audio, video {
+	margin: 0;
+  padding: 0;
+	border: 0;
+  font-size: 100%;
+    vertical-align: baseline;
+    box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;  
+	background: #FFF;
+	font-family: 'Helvetica Neue', arial, sans-serif;
+	font-weight: normal;
+	color: #2d333a;
+}
+
+
+p {
+  font-size: 0.875rem;
+}
+
+.wrapper {
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+}
+
+
+h1.h1{
+  font-size:  2.5rem;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex .view {
+  flex: 1;	
+  padding: 5%;
+  margin: 5%; 
+  box-shadow: 3px 3px 20px 0px rgba(0, 0, 0, 0.2);	
+  border-radius: 0.85rem;
+}
+
+.flex .settings {
+  flex: 1;	
+  padding: 0 5%;
+  margin: 5%;      
+}
+
+.settings > h1 {
+  font-size: 1.5rem;
+  padding: 0 0 1rem 0;
+}
+
+.settings .inputs {
+  margin:  0 0 1.5rem 0;
+}
+
+input.inputs {
+  width: 100%;
+  display: block;
+  background-color: white;
+  padding: 16px;
+  margin: 8px 0;
+  background-color: #f3f3f3;
+  border-radius: 6px;
+  background-color: #f3f3f3;
+}
+
+select.inputs {
+  width: 100%;
+  display: block;
+  background-color: white;
+  padding: 16px;
+  margin: 8px 0;
+  background-color: #f3f3f3;
+  border-radius: 6px;
+  background-color: #f3f3f3;
+}
