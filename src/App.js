@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { blue } from "color-name";
 
 
 //Polygons are coming soon!
