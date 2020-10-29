@@ -52,20 +52,24 @@ h1.h1{
 
 .flex .view {
   flex: 1;	
-  padding: 5%;
-  margin: 5%; 
+  padding: 0 5%;
+  margin: 0 2.5%; 
+}
+
+.view .box {
+  padding: 1rem;
   box-shadow: 3px 3px 20px 0px rgba(0, 0, 0, 0.2);	
   border-radius: 0.85rem;
 }
 
 .flex .settings {
   flex: 1;	
-  padding: 0 5%;
-  margin: 5%;      
+  padding: 0 0 0 5%;
+  margin: 2.5%;      
 }
 
 .settings > h1 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   padding: 0 0 1rem 0;
 }
 
@@ -93,4 +97,26 @@ select.inputs {
   background-color: #f3f3f3;
   border-radius: 6px;
   background-color: #f3f3f3;
+}
+
+.centered {
+  text-align: center;
+}
+
+.tags  {
+  margin-top: 1rem;
+}
+
+.tags h5 {
+  margin-bottom: 1rem; 
+  font-weight: normal;
+  font-size: 0.9rem;
+}
+
+.tag {
+  margin: 0.5rem 0.5rem;
+  background: #f3f5fa;
+  padding: 0.5rem;
+  border-radius: 1rem; 
+  display: inline-block;
 }
