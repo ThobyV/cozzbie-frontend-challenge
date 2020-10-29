@@ -193,7 +193,7 @@ const App = () => {
   const [savedShapes, setSavedShapes] = useState([]);
 
   const saveShapeToLocalStorage = (shapeName) => {
-    if (!savedShapes.find(name => name === shapeName)) {
+    if (!enteredShapes.find(name => name === shapeName)) {
       enteredShapes.push(shapeName);
       localStorage.setItem('selected_shapes', JSON.stringify(enteredShapes));
     }
