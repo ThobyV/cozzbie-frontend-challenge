@@ -199,13 +199,19 @@ const InputFields = ({ currentShapeData, setSelectedShape }) => {
 const enteredShapes = [];
 
 const EnteredShapes = ({ shapesArr }) => {
-  if (shapesArr) return shapesArr.map(shape =>
-    <div className="tag" key={shape.name}>
-      <b>{shape.name}</b>
-      <div className="svg-wrapper-small">
-        <DisplaySVG currentShapeData={shape} x={300} y={300} />
-      </div>
-    </div>)
+  if (shapesArr) return shapesArr.map(shape => {
+    if (typeof shape !== "string") {
+      return (
+      <div className="tag" key={shape.name}>
+        <b>{shape.name}</b>
+        <div className="svg-wrapper-small">
+          <DisplaySVG currentShapeData={shape} x={300} y={300} />
+        </div>
+      </div>)
+    }
+    return null;
+  }
+  )
 
   return null;
 }

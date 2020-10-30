@@ -4,6 +4,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 [https://kyc-app-65a63.web.app](https://kyc-app-65a63.web.app)
 
 
+### Things that could go wrong in Production (Resolved)
+
+The previously deployed version used strings in an array to get shapes,it conflicted with the newer and more improved method of storing shapes in the newly deployed versions in production environments as local storage willl not reset on new webapp versions/deploys as it is not directly aware of such cases and will keep data the way it was. 
+
+So Different data structures from local storage with same approach to use them caused a crash, but immediately I prevented that from ever happening again in every environments (Prod/Dev) in the new update by simply checking for this situation in the code. 
+
 ## Available Scripts
 
 In the project directory, you can run:
