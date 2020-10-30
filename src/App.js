@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 //Multipart Polygons are coming soon!
 
-const shapes = [
+const SHAPES = [
   { name: 'select a shape' },
   {
     name: 'rectangle',
@@ -38,6 +38,8 @@ const shapes = [
   },
 ];
 
+const COLORS = ['blue', 'red', 'green', 'indigo', 'black']
+
 const generatePolygonPoints = (sideCount) => {
   let radii = 100;
   let centerX = 150;
@@ -65,13 +67,12 @@ const hasKey = (obj, key) => {
   return true;
 }
 
-
 const ShapesOptions = ({ shape }) => {
-  return shapes.map(({ name }) =>
+  return SHAPES.map(({ name }) =>
     <option key={name} value={`${name}`}>{name}</option>)
 }
 
-const DisplaySVG = ({ currentShapeData }) => {
+const DisplaySVG = ({ currentShapeData, x, y }) => {
   if (currentShapeData) {
     const { data, defaultVals } = currentShapeData.attr;
 
@@ -86,8 +87,10 @@ const DisplaySVG = ({ currentShapeData }) => {
     }
 
     return (
-      <svg width="350" height="350" version="1.1" xmlns="http://www.w3.org/2000/svg">
-        <currentShapeData.attr.name {...svgAttrs()} />
+      <svg
+        viewBox={`0 0 ${x} ${y}`} preserveAspectRatio="xMidYMid meet"
+        version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <currentShapeData.attr.name {...svgAttrs()} id="svg-anim" />
       </svg>
     )
   }
@@ -95,8 +98,19 @@ const DisplaySVG = ({ currentShapeData }) => {
   return (<div className="centered"><b>no shape yet</b></div>)
 }
 
+const ColorDialog = ({ handleInput }) => {
+  return COLORS.map(code =>
+    <button
+      style={{ background: `${code}` }}
+      key={code}
+      onClick={() => handleInput(code, 'fill')}>
+    </button>)
+}
+
 const InputFields = ({ currentShapeData, setSelectedShape }) => {
-  const [inputValue, setInputValue] = useState(0);
+  const [inputValue, setInputValue] = useState({ fill: '#008000' });
+  const [focused, setFocused] = useState(false);
+
   const { name } = currentShapeData;
 
   const parseValue = (v, k) => {
@@ -111,10 +125,13 @@ const InputFields = ({ currentShapeData, setSelectedShape }) => {
     setSelectedShape({ ...currentShapeData, input: { ...currentShapeData.input, [key]: parseValue(val, key) } })
   }
 
+  const handleFocus = () => {
+    setFocused(!focused)
+  }
+
   return (
     <>
-      {
-        name === 'rectangle' &&
+      {name === 'rectangle' &&
         <>
           <h2> W: </h2>
           <input className="inputs" type="number" onChange={({ target }) =>
@@ -129,8 +146,7 @@ const InputFields = ({ currentShapeData, setSelectedShape }) => {
         </>
       }
 
-      {
-        name === 'circle' &&
+      {name === 'circle' &&
         <>
           <h2> radius </h2>
           <input className="inputs" type="number" onChange={({ target }) =>
@@ -140,8 +156,7 @@ const InputFields = ({ currentShapeData, setSelectedShape }) => {
         </>
       }
 
-      {
-        name === 'ellipse' &&
+      {name === 'ellipse' &&
         <>
           <h2> r1: </h2>
           <input className="inputs" type="number" onChange={({ target }) =>
@@ -156,10 +171,9 @@ const InputFields = ({ currentShapeData, setSelectedShape }) => {
         </>
       }
 
-      {
-        name === 'polygon' &&
+      {name === 'polygon' &&
         <>
-          <h2> number of sides: </h2>
+          <h2> Number of sides: </h2>
           <input className="inputs" type="number" onChange={({ target }) =>
             handleInput(target.value, 'points')
           } />
@@ -167,11 +181,16 @@ const InputFields = ({ currentShapeData, setSelectedShape }) => {
         </>
       }
 
-
-      <h1> Enter color name </h1>
-      <input className="inputs" type="text" onChange={({ target }) =>
+      <h1> Enter color code or color name </h1>
+      <input className="inputs" value={inputValue.fill} type="text" onChange={({ target }) =>
         handleInput(target.value, 'fill')
-      } />
+      }
+        onFocus={() => handleFocus()} />
+
+      {focused &&
+        <div className="color-dialog" onBlur={() => handleFocus()}>
+          <ColorDialog handleInput={handleInput} />
+        </div>}
 
     </>
   )
@@ -180,9 +199,12 @@ const InputFields = ({ currentShapeData, setSelectedShape }) => {
 const enteredShapes = [];
 
 const EnteredShapes = ({ shapesArr }) => {
-  if (shapesArr) return shapesArr.map(name =>
-    <div className="tag" key={name}>
-      <b>{name}</b>
+  if (shapesArr) return shapesArr.map(shape =>
+    <div className="tag" key={shape.name}>
+      <b>{shape.name}</b>
+      <div className="svg-wrapper-small">
+        <DisplaySVG currentShapeData={shape} x={300} y={300} />
+      </div>
     </div>)
 
   return null;
@@ -192,9 +214,9 @@ const App = () => {
   const [selectedShape, setSelectedShape] = useState('');
   const [savedShapes, setSavedShapes] = useState([]);
 
-  const saveShapeToLocalStorage = (shapeName) => {
-    if (!enteredShapes.find(name => name === shapeName)) {
-      enteredShapes.push(shapeName);
+  const saveShapeToLocalStorage = (shape) => {
+    if (!enteredShapes.find(({ name }) => name === shape.name)) {
+      enteredShapes.push(shape);
       localStorage.setItem('selected_shapes', JSON.stringify(enteredShapes));
     }
   }
@@ -204,15 +226,14 @@ const App = () => {
   }
 
   const setShape = (_name) => {
-    saveShapeToLocalStorage(_name);
-    let shape = shapes.find(({ name }) => name === _name);
+    let shape = SHAPES.find(({ name }) => name === _name);
+    saveShapeToLocalStorage(shape);
     return { ...shape, input: shape.attr.defaultVals }
   }
 
   useEffect(() => {
     setSavedShapes(getShapesFromLocalStorage());
   }, [selectedShape]);
-
 
   return (<div className="wrapper">
     <div>
@@ -238,10 +259,12 @@ const App = () => {
 
         <div className="view">
           <div className="box">
-            <DisplaySVG currentShapeData={selectedShape} />
+            <div className="svg-wrapper-main">
+              <DisplaySVG currentShapeData={selectedShape} x={300} y={350} />
+            </div>
           </div>
           <div className="tags">
-            <h5> Entered shapes: </h5  >
+            <h5> Entered shapes: </h5>
             <EnteredShapes shapesArr={savedShapes} />
           </div>
         </div>

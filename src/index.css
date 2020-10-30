@@ -19,14 +19,16 @@ time, mark, audio, video {
     box-sizing: border-box;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@423&family=Roboto&display=swap');
+
+
 html, body {
   height: 100%;  
-	background: #FFF;
-	font-family: 'Helvetica Neue', arial, sans-serif;
+	background: #F6F6F6;
+	font-family: arial, sans-serif;
 	font-weight: normal;
 	color: #2d333a;
 }
-
 
 p {
   font-size: 0.875rem;
@@ -35,13 +37,23 @@ p {
 .wrapper {
   height: 100%;
   width: 100%;
-  background-color: #fff;
 }
 
+.svg-wrapper-main {
+  width: 20vw;
+  height: auto;
+}
+
+.svg-wrapper-small {
+  width: 3vw;
+  height: 3vh;
+  float: right;
+}
 
 h1.h1{
+	font-family: 'Josefin Sans', arial, sans-serif;  
   font-size:  2.5rem;
-  padding: 2rem;
+  padding: 1.15rem;
   display: flex;
   justify-content: center;
 }
@@ -56,9 +68,11 @@ h1.h1{
   margin: 0 2.5%; 
 }
 
-.view .box {
+.box {
+  background: white;
   padding: 1rem;
-  box-shadow: 3px 3px 20px 0px rgba(0, 0, 0, 0.2);	
+  margin-top: 3rem;  
+  box-shadow: 3px 3px 40px 0px rgba(0, 0, 0, 0.1);	
   border-radius: 0.85rem;
 }
 
@@ -69,12 +83,12 @@ h1.h1{
 }
 
 .settings > h1 {
-  font-size: 1.25rem;
-  padding: 0 0 1rem 0;
+  font-size: 1rem;
+  padding: 0.8rem 0;
 }
 
-.settings .inputs {
-  margin:  0 0 1.5rem 0;
+.settings > h2 {
+  padding: 0.8rem 0;
 }
 
 input.inputs {
@@ -82,10 +96,8 @@ input.inputs {
   display: block;
   background-color: white;
   padding: 16px;
-  margin: 8px 0;
-  background-color: #f3f3f3;
-  border-radius: 6px;
-  background-color: #f3f3f3;
+  border-radius: 10px;
+  box-shadow: 3px 3px 15px 0px rgba(0, 0, 0, 0.1);	  
 }
 
 select.inputs {
@@ -94,9 +106,9 @@ select.inputs {
   background-color: white;
   padding: 16px;
   margin: 8px 0;
-  background-color: #f3f3f3;
-  border-radius: 6px;
-  background-color: #f3f3f3;
+  border-radius: 10px;
+  border-style: none;
+  box-shadow: 3px 3px 15px 0px rgba(0, 0, 0, 0.1);	  
 }
 
 .centered {
@@ -104,6 +116,7 @@ select.inputs {
 }
 
 .tags  {
+  position: relative;
   margin-top: 1rem;
 }
 
@@ -114,9 +127,70 @@ select.inputs {
 }
 
 .tag {
-  margin: 0.5rem 0.5rem;
-  background: #f3f5fa;
-  padding: 0.5rem;
+  padding: 0.25rem 0.8rem;
+  box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.1);	
+  margin: 0.25rem 0.25rem;
+  background: #e6ecf0;
   border-radius: 1rem; 
   display: inline-block;
+}
+
+.tag b {
+  font-size: 0.79rem;
+  margin: 0.5rem 0.5rem 0 0;
+  float: left;
+}
+
+.color-dialog {
+  background: white;
+  margin-top: 0.25rem;
+  position: relative;
+  display: inline-block;  
+  padding: 0.25rem;
+  box-shadow: 3px 3px 40px 0px rgba(0, 0, 0, 0.1);	
+  border-radius: 0.85rem;
+}
+
+.color-dialog::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%;
+  left: 20%;
+  margin-left: -9px;
+  border-width: 9px;
+  border-style: solid;
+  border-color: transparent transparent white transparent;
+}
+
+.color-dialog button {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0.25rem;
+  border-radius: 0.85rem;
+  border-style: none;
+  border-radius: 10px;
+  display: inline-block;
+  outline: none;
+}
+
+#svg-anim {
+  animation: anim-entry 1s ease-in-out;
+  -webkit-animation: anim-entry 1s ease-in-out;
+}
+
+@keyframes anim-entry {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(.3);
+ }
+ 50% {
+    opacity: 1;
+    -webkit-transform: scale(1.05);
+ }
+ 70% {
+    -webkit-transform: scale(.9);
+ }
+ 100% {
+    -webkit-transform: scale(1);
+ }
 }
