@@ -7,3 +7,10 @@ services:
     ports:
       - 4680:3000
     command: npm start
+
+  test:
+    build:
+      context: .
+    environment:
+      - CI=true
+    command: npm test

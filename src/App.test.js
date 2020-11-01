@@ -1,9 +1,15 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import App from './App';
+import { App, ShapesOptions, DisplaySVG } from './App';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+describe('ShapesOptions', () => {
+  it('renders svg shapes options', async () => {
+    const _shapes = ['circle','square','polygon','ellipse']
+
+    const { getAllByRole } = render(<ShapesOptions items={_shapes} />)
+
+    const listItems = getAllByRole('option')
+    expect(listItems).toHaveLength(5)
+
+  })
+})
